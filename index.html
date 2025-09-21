@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kasarapu Pranay — Video Editor & Reels Creator</title>
+  <meta name="description" content="Portfolio of Kasarapu Pranay — festival reels, Instagram editing, YouTube edits. DM on WhatsApp: 7207455422" />
+
+  <!-- Fonts (bobble + clean) -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Fredoka+One&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-top:#020617;--bg-bottom:#041827;
+      --accent-1:99,102,241;--accent-2:0,255,200;
+      --glass:rgba(255,255,255,0.04);--glass-2:rgba(255,255,255,0.02);
+      --card-radius:18px;--blur:14px;--max-width:1100px;
+      --card-shadow:0 10px 30px rgba(2,6,23,0.65);
+      --glass-border:rgba(255,255,255,0.06);
+      --muted:rgba(230,238,248,0.65);
+      --display-font:'Baloo 2','Fredoka One',system-ui;
+      --body-font:'Poppins',system-ui;
+      --bobble-font:'Fredoka One','Baloo 2';
+      --stars-count:70;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;}
+    body{
+      font-family:var(--body-font);
+      background:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 100%);
+      color:#e6eef8;line-height:1.45;
+      display:flex;justify-content:center;padding:20px;
+      overflow-x:hidden;
+    }
+    .wrap{width:100%;max-width:var(--max-width);z-index:3}
+    header{text-align:center;margin-bottom:20px}
+    .avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 10px;display:block;
+      border:4px solid rgba(255,255,255,0.08);
+      box-shadow:0 6px 20px rgba(2,6,23,0.7);
+      transition:.3s}
+    h1{font-family:var(--bobble-font);font-size:28px;margin-bottom:8px}
+    h1 .muted-inline{font-size:14px;color:var(--muted);font-weight:500;margin-left:6px}
+    .glow-line{height:5px;width:120px;margin:10px auto;border-radius:999px;
+      background:linear-gradient(90deg,rgba(var(--accent-1),0.4),rgba(var(--accent-2),0.25));
+      filter:blur(8px)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:16px}
+    .card{background:rgba(255,255,255,0.02);border-radius:var(--card-radius);
+      padding:14px;backdrop-filter:blur(var(--blur)px);border:1px solid var(--glass-border);
+      box-shadow:var(--card-shadow);margin-bottom:16px;transition:.3s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(2,6,23,0.7)}
+    .section-title{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+    .section-title h3{margin:0;font-size:16px;font-family:var(--bobble-font)}
+    p.lead{margin-bottom:8px;color:rgba(230,238,248,0.9)}
+    .badge{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;
+      background:rgba(255,255,255,0.05);font-family:var(--bobble-font);margin:2px;display:inline-block}
+    .services,.portfolio-grid{display:grid;gap:10px}
+    .services{grid-template-columns:1fr 1fr}
+    .portfolio-grid{grid-template-columns:1fr 1fr}
+    .service,.port-item{padding:10px;border-radius:12px;background:rgba(255,255,255,0.03)}
+    aside{position:sticky;top:20px}
+    .cta{display:block;padding:10px 14px;border-radius:10px;text-align:center;font-weight:700;
+      background:linear-gradient(90deg,rgba(99,102,241,0.1),rgba(0,255,200,0.08));
+      margin:6px 0;color:#fff;text-decoration:none;transition:.3s}
+    .cta:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(var(--accent-1),0.2)}
+    footer{text-align:center;margin-top:20px;font-size:13px;color:rgba(230,238,248,0.7)}
+    /* stars */
+    #stars{position:fixed;inset:0;z-index:1;pointer-events:none}
+    .star{position:absolute;background:radial-gradient(circle,#fff 0%,rgba(255,255,255,0.6) 40%,rgba(255,255,255,0) 70%);
+      border-radius:50%;opacity:0;transform:scale(.6)}
+    /* moon */
+    .moon{position:fixed;right:20px;top:20px;width:70px;height:70px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%,#fff,#ddd 20%,rgba(255,255,255,0.2) 100%);
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);z-index:2}
+    /* rain */
+    #rain-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+    /* responsive */
+    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- background -->
+  <div id="stars"></div>
+  <canvas id="rain-canvas"></canvas>
+  <div class="moon"></div>
+
+  <div class="wrap">
+    <header>
+      <img class="avatar" src="profile.png" alt="Kasarapu Pranay">
+      <h1>Kasarapu Pranay <span class="muted-inline">— Video Editor & Reels Creator 🎬</span></h1>
+      <div class="glow-line"></div>
+    </header>
+
+    <main class="grid">
+      <div>
+        <section class="card">
+          <div class="section-title"><span>🧑🏻‍💻</span><h3>About</h3></div>
+          <p class="lead">Hi, I’m <strong>Pranay</strong>, a video editor crafting reels, festival edits & shorts. DM me on WhatsApp for collaborations!</p>
+          <div>
+            <span class="badge">Reels</span>
+            <span class="badge">Festival Edits</span>
+            <span class="badge">Shorts</span>
+            <span class="badge">Promo</span>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title"><span>🛠️</span><h3>Services</h3></div>
+          <div class="services">
+            <div class="service">Instagram Reels Editing 🔥</div>
+            <div class="service">Festival Reels 🎉</div>
+            <div class="service">YouTube Shorts 📺</div>
+            <div class="service">Custom Promos 💼</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title"><span>📁</span><h3>Portfolio</h3></div>
+          <div class="portfolio-grid">
+            <div class="port-item">Festival Montage ✨</div>
+            <div class="port-item">Wedding Reel 💍</div>
+            <div class="port-item">Travel Reel 🌍</div>
+            <div class="port-item">YouTube Short ▶️</div>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <div class="card">
+          <div class="section-title"><span>📇</span><h3>Contact</h3></div>
+          <a class="cta" href="https://wa.me/917207455422">💬 WhatsApp</a>
+          <a class="cta" href="https://www.instagram.com/bunny_goud_official">📸 Instagram</a>
+          <a class="cta" href="https://youtube.com/@bunny_creations_22">▶️ YouTube</a>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © Kasarapu Pranay • Scroll-stopping edits together! 🎞️
+    </footer>
+  </div>
+
+  <script>
+    // stars
+    const starsRoot=document.getElementById('stars');
+    function createStars(n=80){
+      starsRoot.innerHTML='';
+      for(let i=0;i<n;i++){
+        const s=document.createElement('div');
+        s.className='star';
+        const size=Math.random()*2+1;
+        s.style.width=s.style.height=size+'px';
+        s.style.left=Math.random()*100+'%';
+        s.style.top=Math.random()*100+'%';
+        const dur=(Math.random()*6)+4;
+        const delay=Math.random()*-20;
+        s.style.animation=`twinkle ${dur}s linear ${delay}s infinite`;
+        starsRoot.appendChild(s);
+      }
+    }
+    const st=document.createElement('style');
+    st.innerHTML=`@keyframes twinkle{0%{opacity:.1}50%{opacity:.9}100%{opacity:.1}}`;
+    document.head.appendChild(st);
+    createStars(70);
+
+    // rain
+    const canvas=document.getElementById('rain-canvas'),ctx=canvas.getContext('2d');
+    let drops=[];
+    function resize(){
+      canvas.width=innerWidth*devicePixelRatio;
+      canvas.height=innerHeight*devicePixelRatio;
+      canvas.style.width=innerWidth+'px';
+      canvas.style.height=innerHeight+'px';
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+    function spawnRain(count=120){
+      drops=[];
+      for(let i=0;i<count;i++){
+        drops.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+          l:Math.random()*15+10,s:Math.random()*2+2});
+      }
+    }
+    function drawRain(){
+      ctx.clearRect(0,0,innerWidth,innerHeight);
+      ctx.strokeStyle='rgba(255,255,255,0.15)';
+      ctx.lineWidth=1;
+      for(const d of drops){
+        ctx.beginPath();
+        ctx.moveTo(d.x,d.y);
+        ctx.lineTo(d.x,d.y+d.l);
+        ctx.stroke();
+        d.y+=d.s;
+        if(d.y>innerHeight)d.y=-20;
+      }
+      requestAnimationFrame(drawRain);
+    }
+    resize();spawnRain();drawRain();
+    window.addEventListener('resize',()=>{resize();spawnRain();});
+  </script>
+</body>
+</html>
